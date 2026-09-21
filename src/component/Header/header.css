@@ -1,0 +1,217 @@
+/* ==========================================================================
+   Sticky header
+   ========================================================================== */
+
+.site-header {
+  background-color: rgba(255, 255, 255, 0.86);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--color-line);
+  padding: 0;
+  z-index: 1030;
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--header-h);
+  flex-wrap: wrap;
+}
+
+/* --- brand ---------------------------------------------------------------- */
+.brand-link,
+.site-header .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+.brand-link:hover { color: var(--color-ink); }
+
+.brand-link .joulia-mark { flex: none; }
+
+.brand-text em {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-ember);
+}
+
+/* --- nav links ------------------------------------------------------------ */
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.nav-link-item {
+  position: relative;
+  color: var(--color-ink-soft);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: var(--step-0);
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  transition: color .18s ease, background-color .18s ease;
+}
+
+.nav-link-item:hover {
+  color: var(--color-ink);
+  background-color: var(--color-stone);
+}
+
+.nav-link-item.active {
+  color: var(--color-ink);
+  font-weight: 600;
+  background-color: var(--color-stone);
+}
+
+/* --- right-hand actions --------------------------------------------------- */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-inline-start: auto;
+}
+
+.account-dropdown .dropdown-toggle {
+  background: none;
+  border: none;
+  color: var(--color-ink-soft);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--step-0);
+  padding: 8px 10px;
+}
+
+.account-dropdown .dropdown-toggle:hover { color: var(--color-ink); }
+
+.account-dropdown .dropdown-menu {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font-size: var(--step-0);
+  padding: 6px;
+}
+
+.account-dropdown .dropdown-item {
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  color: var(--color-ink);
+}
+
+.account-dropdown .dropdown-item:hover,
+.account-dropdown .dropdown-item:focus {
+  background-color: var(--color-stone);
+  color: var(--color-ink);
+}
+
+/* --- language switch ------------------------------------------------------ */
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 14px;
+  background: transparent;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .18s ease, border-color .18s ease;
+}
+
+.lang-toggle:hover {
+  background-color: var(--color-stone);
+  border-color: var(--color-ink-faint);
+}
+
+.lang-toggle i { font-size: 14px; color: var(--color-ink-soft); }
+
+/* --- cart ----------------------------------------------------------------- */
+.cart-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: var(--color-ink);
+  font-size: 18px;
+  text-decoration: none;
+  transition: background-color .18s ease;
+}
+
+.cart-button:hover {
+  background-color: var(--color-stone);
+  color: var(--color-ink);
+}
+
+.cart-count {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-ember);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 19px;
+  text-align: center;
+  animation: cart-bump .35s ease;
+}
+
+@keyframes cart-bump {
+  0% { transform: scale(0.6); }
+  55% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+/* --- mobile toggle -------------------------------------------------------- */
+.nav-toggle {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+}
+
+.nav-toggle:focus { box-shadow: none; }
+
+@media (max-width: 991.98px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 0 14px;
+    border-top: 1px solid var(--color-line);
+    margin-top: 8px;
+  }
+
+  .nav-link-item { padding: 10px 12px; }
+}
+
+/* below ~420px the mark alone carries the brand */
+@media (max-width: 420px) {
+  .brand-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}

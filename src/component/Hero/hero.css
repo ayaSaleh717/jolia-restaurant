@@ -1,0 +1,298 @@
+/* ==========================================================================
+   Hero — copy on the left, video background on the right
+   ========================================================================== */
+
+.hero-section {
+  position: relative;
+  background-color: var(--color-char);
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* a single soft pool of warmth behind the copy — the only decoration here */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 55%;
+  height: 120%;
+  background: radial-gradient(
+    closest-side,
+    rgba(214, 55, 31, 0.28),
+    rgba(214, 55, 31, 0)
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-inner {
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding: clamp(48px, 6vw, 96px) clamp(16px, 4vw, 32px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 64px);
+  position: relative;
+}
+
+/* --- left column: copy ---------------------------------------------------- */
+.hero-copy {
+  max-width: 34rem;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 18px;
+}
+
+.hero-kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-ember);
+  flex: none;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin: 0 0 18px;
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.hero-text {
+  font-size: var(--step-1);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 44ch;
+  margin: 0 0 30px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.hero-btn-primary,
+.hero-btn-secondary {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--step-0);
+  padding: 13px 28px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: background-color .18s ease, border-color .18s ease,
+              color .18s ease, transform .12s ease;
+}
+
+.hero-btn-primary {
+  background-color: var(--color-ember);
+  color: #fff;
+  border: 1px solid var(--color-ember);
+}
+
+.hero-btn-primary:hover {
+  background-color: var(--color-ember-dark);
+  border-color: var(--color-ember-dark);
+  color: #fff;
+}
+
+.hero-btn-secondary {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+}
+
+.hero-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+.hero-btn-primary:active,
+.hero-btn-secondary:active { transform: translateY(1px); }
+
+/* three plain facts, not decorative stats */
+.hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-char-3);
+  margin: 0;
+}
+
+.hero-fact dt {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.hero-fact dd {
+  margin: 2px 0 0;
+  font-size: var(--step--1);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* --- right column: the video background --------------------------------------- */
+.hero-video-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 177.78vh;        /* oversize + center-crop so the video fills the box */
+  height: 100%;
+  min-width: 100%;
+  min-height: 56.25vw;
+  transform: translate(-50%, -50%);
+  border: 0;
+  pointer-events: none;   /* the box is a background, not a player to click into */
+  object-fit: cover;
+}
+
+/* --- responsive ----------------------------------------------------------- */
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .hero-copy { max-width: 100%; }
+
+  .hero-video-background {
+    position: relative;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin-top: 32px;
+  }
+
+  .hero-video {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: none;
+    min-width: auto;
+    min-height: auto;
+  }
+
+  /* shown only when the video cannot play */
+  .hero-media-fallback {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(140deg, #3a2a1c 0%, #6b3a24 55%, #d6371f 140%);
+  }
+
+  .hero-section::before {
+    width: 90%;
+    height: 60%;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-actions { gap: 10px; }
+
+  .hero-btn-primary,
+  .hero-btn-secondary {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  /* keep the three facts on one row rather than orphaning the third */
+  .hero-facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .hero-fact dt { font-size: var(--step-1); }
+  .hero-fact dd { font-size: 12px; line-height: 1.35; }
+}
+
+/* --- right column: the video window --------------------------------------- */
+.hero-media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-char-2);
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 4 / 3;
+}
+
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* shown only when the video cannot play */
+.hero-media-fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(140deg, #3a2a1c 0%, #6b3a24 55%, #d6371f 140%);
+}
+
+.hero-media-caption {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--step--1);
+  color: #fff;
+  background-color: rgba(23, 21, 15, 0.62);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+  max-width: 100%;
+}
+
+.hero-media-caption i { color: var(--color-ember); }
+
+/* --- responsive ----------------------------------------------------------- */

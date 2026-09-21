@@ -1,0 +1,248 @@
+/* ==========================================================================
+   Joulia Restaurant — design tokens + global base
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap");
+/* Arabic face - its font files are only fetched once Arabic text is on screen */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap");
+
+:root {
+  /* --- colour ------------------------------------------------------------ */
+  --color-char: #17150f;          /* roasted near-black — hero + footer      */
+  --color-char-2: #23201a;        /* raised surface on dark                  */
+  --color-char-3: #332e25;        /* hairline on dark                        */
+
+  --color-paper: #ffffff;         /* page background                         */
+  --color-stone: #f2f1ec;         /* quiet section background                */
+  --color-line: #e3e1d9;          /* hairlines on light                      */
+
+  --color-ember: #d6371f;         /* primary action — chilli red             */
+  --color-ember-dark: #b32b16;
+  --color-ember-soft: #fdeeeb;
+
+  --color-herb: #3c6b4a;          /* vegetarian / success                    */
+  --color-herb-soft: #eaf2ec;
+  --color-gold: #d99b17;          /* ratings                                 */
+
+  --color-ink: #1b1a16;           /* primary text                            */
+  --color-ink-soft: #6a675e;      /* secondary text                          */
+  --color-ink-faint: #9a978d;
+
+  /* aliases kept so older component styles keep resolving */
+  --color-primary: var(--color-ember);
+  --color-primary-dark: var(--color-ember-dark);
+
+  /* --- type -------------------------------------------------------------- */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --step--1: 0.8125rem;   /* 13px  captions            */
+  --step-0: 0.9375rem;    /* 15px  body                */
+  --step-1: 1.0625rem;    /* 17px  lead                */
+  --step-2: 1.375rem;     /* 22px  card / sub headings */
+  --step-3: clamp(1.75rem, 1.35rem + 1.7vw, 2.5rem);   /* section titles */
+  --step-4: clamp(2.5rem, 1.6rem + 3.9vw, 4.25rem);    /* hero title     */
+
+  /* --- shape & depth ----------------------------------------------------- */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(23, 21, 15, 0.06);
+  --shadow: 0 6px 18px -8px rgba(23, 21, 15, 0.22);
+  --shadow-lg: 0 22px 48px -22px rgba(23, 21, 15, 0.38);
+
+  --header-h: 68px;
+
+  /* --- rhythm ------------------------------------------------------------ */
+  --gap: 20px;
+  --section-y: clamp(48px, 6vw, 88px);
+  --shell: 1200px;
+}
+
+/* --- reset ---------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.5em;
+}
+
+h1 { font-size: var(--step-4); }
+h2, .h2 { font-size: var(--step-3); }
+h3, .h3 { font-size: var(--step-2); }
+h4, h5, h6 { font-size: var(--step-1); }
+
+p { margin: 0 0 1rem; max-width: 68ch; }
+
+a { color: var(--color-ember); text-decoration: none; }
+a:hover { color: var(--color-ember-dark); }
+
+code {
+  font-family: ui-monospace, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* --- focus visibility ----------------------------------------------------- */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid rgba(214, 55, 31, 0.45);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* --- shared page furniture ------------------------------------------------ */
+.section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 20px;
+  margin-bottom: 24px;
+}
+
+.section-heading p {
+  color: var(--color-ink-soft);
+  font-size: var(--step-0);
+  margin: 0;
+}
+
+.page-shell {
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 32px);
+}
+
+/* --- buttons -------------------------------------------------------------- */
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--step-0);
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  padding: 11px 24px;
+  transition: background-color .18s ease, color .18s ease,
+              border-color .18s ease, transform .12s ease;
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn-solid,
+.checkout-btn,
+.add-cart-btn,
+.btn-primary {
+  background-color: var(--color-ember) !important;
+  border-color: var(--color-ember) !important;
+  color: #fff !important;
+}
+
+.btn-solid:hover,
+.checkout-btn:hover,
+.add-cart-btn:hover,
+.btn-primary:hover {
+  background-color: var(--color-ember-dark) !important;
+  border-color: var(--color-ember-dark) !important;
+  color: #fff !important;
+}
+
+.btn-quiet {
+  background-color: transparent;
+  border-color: var(--color-line);
+  color: var(--color-ink);
+}
+
+.btn-quiet:hover {
+  background-color: var(--color-stone);
+  border-color: var(--color-ink-faint);
+  color: var(--color-ink);
+}
+
+.btn-danger {
+  background-color: var(--color-ember-soft) !important;
+  border-color: transparent !important;
+  color: var(--color-ember-dark) !important;
+}
+
+.btn-danger:hover {
+  background-color: var(--color-ember) !important;
+  color: #fff !important;
+}
+
+/* --- forms ---------------------------------------------------------------- */
+.form-label {
+  font-weight: 600;
+  font-size: var(--step--1);
+  color: var(--color-ink);
+  margin-bottom: 6px;
+}
+
+.form-control,
+.form-select {
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--color-ember);
+  box-shadow: 0 0 0 3px rgba(214, 55, 31, 0.14);
+  outline: none;
+}
+
+.form-control::placeholder { color: var(--color-ink-faint); }
+
+.form-check-input:checked {
+  background-color: var(--color-ember);
+  border-color: var(--color-ember);
+}
+
+.text-muted { color: var(--color-ink-soft) !important; }
+.text-success { color: var(--color-herb) !important; }
+
+/* --- motion preference ---------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

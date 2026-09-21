@@ -1,0 +1,26 @@
+{
+  "short_name": "Joulia",
+  "name": "Joulia Restaurant",
+  "icons": [
+    {
+      "src": "logo/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "logo/logo-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo/logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#17150F",
+  "background_color": "#17150F"
+}

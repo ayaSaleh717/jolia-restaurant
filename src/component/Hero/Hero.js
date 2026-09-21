@@ -5,8 +5,8 @@ import { useLanguage } from '../../i18n/LanguageContext';
 
 // Local videos from public/videos folder
 const VIDEO_SOURCES = [
-    { src: 'https://www.pexels.com/download/video/32508437/', type: 'video/mp4' },
-    { src: 'https://www.pexels.com/download/video/36579237/', type: 'video/mp4' },
+    { src: 'https://res.cloudinary.com/dbn8jdg2n/video/upload/v2.mp4', type: 'video/mp4' },
+    { src: 'https://res.cloudinary.com/dbn8jdg2n/video/upload/v1.mp4', type: 'video/mp4' },
 ];
 
 // text for these lives in i18n/translations.js (hero.fact1.value, ...)
@@ -26,6 +26,19 @@ function Hero() {
 
         return () => clearInterval(interval);
     }, []);
+
+    // Ensure video plays when it loads or when source changes
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.load();
+            const playPromise = videoRef.current.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('Video autoplay was prevented:', error);
+                });
+            }
+        }
+    }, [currentVideoIndex]);
 
     const handleVideoError = () => setVideoFailed(true);
 
